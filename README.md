@@ -21,6 +21,7 @@ The easiest way to run the entire stack (FastAPI Backend + Vite Frontend) is usi
 ```
 
 This will:
+
 - Start the FastAPI server on `http://localhost:8000`
 - Start the React frontend on `http://localhost:5173`
 
@@ -30,18 +31,18 @@ This will:
 
 Open your browser or use `curl` to hit the `/run-bot` endpoint:
 
-* **Golden Cross Strategy (Default):**
+- **Golden Cross Strategy (Default):**
   [http://localhost:8000/run-bot?strategy=golden_cross](http://localhost:8000/run-bot?strategy=golden_cross)
 
-* **Momentum / Alpha Strategy:**
+- **Momentum / Alpha Strategy:**
   [http://localhost:8000/run-bot?strategy=alpha](http://localhost:8000/run-bot?strategy=alpha)
 
 ### 4. Manage Trades (Database)
 
 You can view or add manual trades via the database API:
 
-* **View all trades:** [http://localhost:8000/db/trades/](http://localhost:8000/db/trades/)
-* **Interactive API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- **View all trades:** [http://localhost:8000/db/trades/](http://localhost:8000/db/trades/)
+- **Interactive API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ## 📁 Module Overview
 
@@ -58,5 +59,5 @@ You can view or add manual trades via the database API:
 
 The bot automatically:
 
-* Drops delisted or all-NaN stocks (like `TATAMOTORS.NS`).
-* Fills intermittent data gaps via forward/backward filling to ensure the Portfolio Optimizer doesn't crash on singular matrices.
+- Drops delisted or all-NaN stocks (like `TATAMOTORS.NS`).
+- Fills intermittent data gaps via forward/backward filling to ensure the Portfolio Optimizer doesn't crash on singular matrices.
