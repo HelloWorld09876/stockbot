@@ -1,0 +1,21 @@
+capital: 100000
+max_positions: null             # null = unlimited
+holding_period_days: null       # null = flexible
+rsi_buy_range: [55, 65]
+rsi_sell_trim: 75
+rsi_sell_exit: 50
+trailing_stop_pct: 0.10
+cache_dir: "cache"
+data_source:
+  price_period: "90d"
+  price_interval: "1d"
+stock_universe:
+  indices: ["NIFTY50", "NIFTY100"]  # Options: NIFTY50, NIFTY100, NIFTY500
+  custom_stocks: []  # Add custom stock symbols here (without .NS suffix)
+  auto_cleanup: true  # Delete temporary data files on exit
+files:
+  portfolio: "portfolio.json"
+  transactions: "transactions.json"
+  log: "stockbot.log"
+
+

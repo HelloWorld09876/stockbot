@@ -1,0 +1,22 @@
+# requirements.txt
+
+# Data sources
+yfinance              # Historical & real-time price data (Phase 1)
+nsepython             # NSE live CMP feed (Phase 1)
+
+# Core dependencies
+pandas
+numpy
+pyyaml
+prettytable
+SQLAlchemy
+tqdm                  # Progress bars for parallel fetching
+
+# Portfolio optimisation (Phase 3)
+PyPortfolioOpt>=1.6.0
+packaging>=24.0       # Required transitive dep of pypfopt/scikit-learn
+
+# Backend dependencies (FastAPI)
+fastapi
+uvicorn
+python-dotenv

@@ -1,0 +1,37 @@
+STOCKBOT PROJECT REPORT - UPDATED MARCH 2026
+
+1. EXECUTIVE SUMMARY
+StockBot is a full-stack financial analysis platform designed for the Indian stock market. It identifies "Quality Growth + Momentum" opportunities by combining deep fundamental analysis with technical trend-following filters. The system evaluates stocks against strict quantitative criteria and provides actionable signals (BUY, SELL, WATCHLIST, AVOID) with specific stop-loss and target price calculations.
+
+2. PROJECT ARCHITECTURE
+
+2.1. BACKEND (The Engine)
+- Location: root directory (`C:\Users\adity\OneDrive\Desktop\stock\stockbot`)
+- Framework: FastAPI (Python 3.10+)
+- Entry Point: `main.py` (Executed via `uvicorn main:app --reload`)
+- Database: SQLite (`stockbot.db` and `stockbot_mvp.db`) using SQLAlchemy.
+- Core Logic:
+  - `data_ingestion.py`: Fetches historical data (yfinance) and real-time CMP.
+  - `strategy_engine.py`: Vectorized logic for Golden Cross and Alpha/Momentum.
+  - `portfolio_allocation.py`: Efficient Frontier (Max Sharpe) with an Equal Weight fallback.
+  - `db_api.py`: FastAPI routes for trading database.
+
+2.2. FRONTEND (The Interface)
+- Location: `/frontend/`
+- Framework: React (Vite, Axios, Lucide-React, Recharts)
+- Integration Status: FULLY CONNECTED.
+- Pages:
+  - Advisory Engine (Dashboard): Interactive scanning via `GET /run-bot?strategy=x`, visualized dynamically with BarCharts for optimal portfolio allocations.
+  - Portfolio Manager: Table-based CRUD interface to `/db/trades/` supporting additions and deletions.
+
+3. RECENT IMPROVEMENTS & BUG FIXES
+- Framework Integration: A brand-new React application built using Vite has been created and wired natively to the Backend API.
+- CORS Policy: `main.py` updated to use `CORSMiddleware`, allowing Cross-Origin Resource Sharing bindings with the frontend.
+- Extraneous File Removal: Purged legacy `ACTION_PLAN.md`, `package-lock.json` from the root, and orphaned logs (`verify_output.txt`) that cluttered the application context.
+- Start Script: `run.bat` has been patched to correctly execute both the backend from the root and frontend from the `/frontend/` folder in parallel.
+
+4. EXECUTION GUIDE
+The project is designed for seamless local execution:
+1. Run `.\run.bat` from the root directory.
+2. The Backend starts at http://localhost:8000 (Open `/docs` for Swagger UI).
+3. The Frontend starts at http://localhost:5173.
