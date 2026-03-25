@@ -124,7 +124,11 @@ function Dashboard({ onRunBot, loading, data, error }) {
   // Convert allocation object to array for Recharts
   const chartData = data?.recommended_allocation 
     ? Object.entries(data.recommended_allocation)
-        .map(([ticker, weight]) => ({ name: ticker.replace('.NS',''), weight: weight * 100 }))
+        .map(([ticker, weight]) => ({ 
+          name: ticker.replace('.NS',''), 
+          fullName: ticker,
+          weight: weight * 100 
+        }))
         .sort((a,b) => b.weight - a.weight)
     : [];
 
@@ -183,9 +187,12 @@ function Dashboard({ onRunBot, loading, data, error }) {
                 Strategy: <span style={{ color: 'var(--text-main)', textTransform: 'capitalize' }}>{data.strategy_used.replace('_', ' ')}</span>
               </p>
               
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {data.filtered_buy_list.map((ticker, idx) => (
-                  <span key={idx} className="badge badge-success">Buy: {ticker}</span>
+                  <div key={idx} className="signal-item">
+                    <span className="badge badge-success">BUY</span>
+                    <span className="ticker-name">{ticker.replace('.NS', '')}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -194,6 +201,18 @@ function Dashboard({ onRunBot, loading, data, error }) {
               <h2 style={{ marginBottom: '1rem', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--accent-gold)' }}>
                 Allocation Distribution
               </h2>
+              
+              <div className="allocation-list" style={{ marginBottom: '1.5rem' }}>
+                {chartData.map((item, idx) => (
+                  <div key={idx} className="allocation-row">
+                    <span className="ticker-name">{item.name}</span>
+                    <div className="allocation-bar-bg">
+                      <div className="allocation-bar-fill" style={{ width: `${item.weight}%` }}></div>
+                    </div>
+                    <span className="percentage-text">{item.weight.toFixed(2)}%</span>
+                  </div>
+                ))}
+              </div>
               <div style={{ height: '200px', width: '100%' }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -275,15 +294,15 @@ function Portfolio({ portfolio, onRefresh, onDelete }) {
         <div className="panel animate-fade" style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.2rem', marginBottom: '1.5rem', color: 'var(--accent-gold)' }}>Register New Position</h2>
           <form onSubmit={handleCreate} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <div className="input-group" style={{ flex: 1, minWidth: '150px' }}>
+            <div className="input-group highlight-input" style={{ flex: 1, minWidth: '150px' }}>
               <label>Ticker (e.g. RELIANCE.NS)</label>
               <input required type="text" className="input-field" value={formData.ticker} onChange={e => setFormData({...formData, ticker: e.target.value})} />
             </div>
-            <div className="input-group" style={{ flex: 1, minWidth: '100px' }}>
+            <div className="input-group highlight-input" style={{ flex: 1, minWidth: '100px' }}>
               <label>Buy Price (₹)</label>
               <input required type="number" step="0.05" className="input-field" value={formData.buy_price} onChange={e => setFormData({...formData, buy_price: e.target.value})} />
             </div>
-            <div className="input-group" style={{ flex: 1, minWidth: '100px' }}>
+            <div className="input-group highlight-input" style={{ flex: 1, minWidth: '100px' }}>
               <label>Quantity</label>
               <input required type="number" className="input-field" value={formData.quantity} onChange={e => setFormData({...formData, quantity: e.target.value})} />
             </div>
